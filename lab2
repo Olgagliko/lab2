@@ -1,0 +1,47 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+double alis(int a, int d, int p)
+{
+	double aa = (int)pow(d, a) % p;
+	return(aa);
+};
+
+double bob(int b, int d, int p)
+{
+	double bb = (int)pow(d, b) % p;
+	return(bb);
+};
+
+double alis_key(int b, int a, int d, int p)
+{
+	double keya = (int)pow(bob(b, d, p), a) % p;
+	return(keya);
+};
+
+double bob_key(int b, int a, int d, int p)
+{
+	double keyb = (int)pow(alis(a, d, p), b) % p;
+	return(keyb);
+};
+
+int main()
+{
+	setlocale(LC_ALL, "Russian");
+	int a,b,d,p;
+	double aa, bb,keya,keyb;
+	cout << "Введите целое положительное число А, которое является закрытым ключем Алисы: ";
+	cin >> a;
+	cout << "Введите целое положительное число B, которое является закрытым ключем Боба: ";
+	cin >> b;
+	cout << "Введите параметр простое положительное число P, желательно чтобы (P-1)/2 также было простым числом, о котором Алиса и Боб договариваются заранее: ";
+	cin >> p;
+	cout << "Введите параметр целое положительное число D, D<P, о котором Алиса и Боб договариваются заранее: ";
+	cin >> d;
+	if (alis_key(b, a, d,  p) == bob_key(b, a, d, p))
+		cout << "Разделяемый секретный ключ: " << bob_key(b, a, d, p);
+	else cout << "error" << endl;
+
+}
